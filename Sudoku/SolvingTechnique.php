@@ -6,38 +6,43 @@ class Zwe_Sudoku_SolvingTechnique
      * @var string
      */
     private $_name;
-    
-    private static $_techniques = array('Hidden Single',
-                                        'Direct Pointing',
-                                        'Direct Hidden Pair',
-                                        'Naked Single',
-                                        'Direct Hidden Triplet',
-                                        'Pointing & Claiming',
-                                        'Naked Pair',
-                                        'X-Wing',
-                                        'Hidden Pair',
-                                        'Naked Triplet',
-                                        'Swordfish',
-                                        'Hidden Triplet',
-                                        'XY-Wing',
-                                        'XYZ-Wing',
-                                        'Unique Rectangle / Loop',
-                                        'Naked Quad',
-                                        'Jellyfish',
-                                        'Hidden Quad',
-                                        'Bivalue Universal Grave',
-                                        'Aligned Pair Exclusion',
-                                        'Forcing Chains & Cycles',
-                                        'Aligned Triplet Exclusion',
-                                        'Nishio Forcing Chains',
-                                        'Multiple Forcing Chains',
-                                        'Dynamic Forcing Chains',
-                                        'Dynamic Forcing Chains (+)',
-                                        'Nested Forcing Chains');
+
+    /**
+     * @var array
+     */
+    private static $_techniques = null;
+
+    const HiddenSingle = "Hidden Single";
+    const DirectPointing = "Direct Pointing";
+    const DirectHiddenPair = "Direct Hidden Pair";
+    const NakedSingle = "Naked Single";
+    const DirectHiddenTriplet = "Direct Hidden Triplet";
+    const PointingClaiming = "Pointing & Claiming";
+    const NakedPair = "Naked Pair";
+    const XWing = "X-Wing";
+    const HiddenPair = "Hidden Pair";
+    const NakedTriplet = "Naked Triplet";
+    const Swordfish = "Swordfish";
+    const HiddenTriplet = "Hidden Triplet";
+    const XYWing = "XY-Wing";
+    const XYZWing = "XYZ-Wing";
+    const UniqueLoop = "Unique Rectangle / Loop";
+    const NakedQuad = "Naked Quad";
+    const Jellyfish = "Jellyfish";
+    const HiddenQuad = "Hidden Quad";
+    const BivalueUniversalGrave = "Bivalue Universal Grave";
+    const AlignedPairExclusion = "Aligned Pair Exclusion";
+    const ForcingChainCycle = "Forcing Chains & Cycles";
+    const AlignedTripletExclusion = "Aligned Triplet Exclusion";
+    const NishioForcingChain = "Nishio Forcing Chains";
+    const MultipleForcingChain = "Multiple Forcing Chains";
+    const DynamicForcingChain = "Dynamic Forcing Chains";
+    const DynamicForcingChainPlus = "Dynamic Forcing Chains (+)";
+    const NestedForcingChain = "Nested Forcing Chains";
     
     public function __construct($Name)
     {
-        if(in_array($Name, self::$_techniques))
+        if(in_array($Name, self::getAll()))
             $this->_name = $Name;
     }
     
@@ -48,6 +53,12 @@ class Zwe_Sudoku_SolvingTechnique
 
     public static function getAll()
     {
+        if(!isset(self::$_techniques))
+        {
+            $Reflection = new ReflectionClass('Zwe_Sudoku_SolvingTechnique');
+            self::$_techniques = $Reflection->getConstants();
+        }
+
         return self::$_techniques;
     }
 }

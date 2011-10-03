@@ -84,6 +84,18 @@ class Zwe_Sudoku_Settings
         $this->_techniques = $Techniques;
     }
 
+    public function addTechnique(Zwe_Sudoku_SolvingTechnique $Technique)
+    {
+        if(!in_array($Technique, $this->_techniques))
+            $this->_techniques[] = $Technique;
+    }
+
+    public function removeTechnique(Zwe_Sudoku_SolvingTechnique $Technique)
+    {
+        if(in_array($Technique, $this->_techniques))
+            unset($this->_techniques[array_search($Technique, $this->_techniques)]);
+    }
+
     public function getTechniques()
     {
         return $this->_techniques;
